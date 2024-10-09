@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Add Flashcard</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Add a New Flashcard</h1>
+        <form method="POST" action="{% url 'add_flashcard' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="question">Question</label>
+                <input type="text" class="form-control" id="question" name="question" required>
+            </div>
+            <div class="form-group">
+                <label for="answer">Answer</label>
+                <textarea class="form-control" id="answer" name="answer" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Flashcard</button>
+            <a href="{% url 'flashcard_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

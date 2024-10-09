@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Flashcard List</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- User Authentication Links -->
+        <div class="text-right mb-3">
+            {% if user.is_authenticated %}
+                <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            {% endif %}
+        </div>
+
+        <h1 class="text-center">Flashcards</h1>
+
+        <!-- Add Flashcard Form -->
+        <form method="POST" action="{% url 'add_flashcard' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="question">Question</label>
+                <input type="text" class="form-control" id="question" name="question" required>
+            </div>
+            <div class="form-group">
+                <label for="answer">Answer</label>
+                <textarea class="form-control" id="answer" name="answer" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Flashcard</button>
+        </form>
+
+        <!-- Flashcard List -->
+        <div class="row mt-4">
+            {% if flashcards %}
+                {% for flashcard in flashcards %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Q: {{ flashcard.question }}</h5>
+                                <p class="card-text"><strong>A:</strong> {{ flashcard.answer }}</p>
+                                <!-- Edit and Delete Buttons -->
+                                
+                                <form action="{% url 'delete_flashcard' flashcard.id %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                <a href="{% url 'edit_flashcard' flashcard.id %}" class="btn btn-warning">Edit</a>
+
+                                    <button type="submit" class="btn btn-danger mt-2">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-warning text-center">
+                        No flashcards available.
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

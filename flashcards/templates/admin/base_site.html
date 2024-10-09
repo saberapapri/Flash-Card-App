@@ -1,0 +1,27 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Flashcard Admin{% endblock %}</title>
+    <!-- Load Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/admin_styles.css' %}">
+</head>
+<body>
+    {% block branding %}
+    <div class="navbar navbar-dark bg-dark">
+        <a href="#" class="navbar-brand">Flashcard App Admin</a>
+    </div>
+    {% endblock %}
+
+    {% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to the Flashcard Admin Panel</h1>
+        <!-- Your custom content can go here -->
+    </div>
+    {% endblock %}
+</body>
+</html>

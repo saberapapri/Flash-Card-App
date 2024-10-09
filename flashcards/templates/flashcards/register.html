@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    
+    {% load static %} <!-- Load static files template tag -->
+    
+    <!-- Link to your custom CSS file -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Register</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="btn btn-primary mt">Register</button>
+            <a href="{% url 'login' %}" class="btn btn-secondary">Cancel</a>
+
+        </form>
+        
+
+        {% if form.errors %}
+            <div class="alert alert-danger mt-3">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
